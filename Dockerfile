@@ -12,6 +12,7 @@ WORKDIR /code
 RUN python /code/setup.py install
 RUN /opt/conda/bin/jupyter-lab --generate-config
 RUN cp /code/jupyter_notebook_config.py /root/.jupyter/
+ENV JUPYTER_PATH="/code"
 EXPOSE 8889
 ENTRYPOINT ["/opt/conda/bin/jupyter-lab", "--ip=0.0.0.0", "--port=8889", "--allow-root"]
 #RUN chmod 0755 /opt/conda/bin/deid
