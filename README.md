@@ -1,3 +1,9 @@
+
+Fork of pydicom/deid - Modified the Docker file so that we can work in Jupyter in the docker container instead of using deid command line.
+
+
+
+
 # Deidentify (deid)
 
 Deidentify medical images in Python.
