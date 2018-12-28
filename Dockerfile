@@ -11,16 +11,12 @@ FROM continuumio/miniconda3
 
 RUN apt-get update && apt-get install -y wget git pkg-config libfreetype6-dev
 RUN /opt/conda/bin/conda install matplotlib==2.1.2
-<<<<<<< HEAD
 RUN conda install pandas
 RUN conda install -c conda-forge jupyterlab
 RUN conda install nodejs
 RUN jupyter labextension install jupyterlab_vim
-RUN pip install pydicom==1.1
-RUN python -m pip install git+git://github.com/pydicom/pynetdicom3.git
-=======
 RUN pip install pydicom==1.1.0
->>>>>>> upstream/master
+RUN python -m pip install git+git://github.com/pydicom/pynetdicom3.git
 RUN mkdir /code
 ADD . /code
 WORKDIR /code
