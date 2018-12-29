@@ -238,7 +238,7 @@ class TestDicomUtils(unittest.TestCase):
         self.assertEqual(fields, expected)
 
         print("Case 4: Test notcontains")
-        fields = expand_field_expression("containsno:Date", dicom)
+        fields = expand_field_expression("notcontains:Date", dicom)
         expected = ['AccessionNumber', 'BitsAllocated', 'BitsStored',
                     'Columns', 'ConversionType', 'HighBit',
                     'ImageComments', 'InstanceNumber', 'InstitutionName',
