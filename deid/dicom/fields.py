@@ -56,6 +56,7 @@ def extract_sequence(sequence,prefix=None):
 def expand_field_expression(field,dicom,contenders=None):
     '''Get a list of fields based on an expression. If 
        no expression found, return single field.
+       
     '''
     fields = field.split(':')
     if len(fields) == 1:
@@ -68,6 +69,12 @@ def expand_field_expression(field,dicom,contenders=None):
         fields = [x for x in contenders if x.endswith(expression)]
     elif expander.lower() == "startswith":
         fields = [x for x in contenders if x.startswith(expression)]
+    elif expander.lower() == "contains":
+        fields = [x for x in contenders if expression in x]
+    elif expander.lower() == "notcontains":
+        fields = [x for x in contenders if expression not in x]
+    elif expander.lower() == "all":
+        fields = contenders
     return fields
 
 

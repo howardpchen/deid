@@ -215,6 +215,62 @@ class TestDicomUtils(unittest.TestCase):
         dicom = perform_action(dicom=dicom,action=JITTER)
         self.assertTrue(dicom.StudyDate, expected)  
         
+    def test_expand_field_expression(self):
+        from deid.dicom.fields import expand_field_expression
+        dicom = get_dicom(self.dataset)
+        dicom.AcquisitionDateTime = '20131210081530'
+        dicom.data_element("AcquisitionDateTime").VR = 'DT'
+
+        print("Case 1: Test startswith")
+        fields = expand_field_expression("startswith:Patient", dicom)
+        expected = ['PatientBirthDate', 'PatientID', 'PatientName',
+                    'PatientOrientation', 'PatientSex']
+        self.assertEqual(fields, expected)
+
+        print("Case 2: Test endswith")
+        fields = expand_field_expression("endswith:Date", dicom)
+        expected = ['PatientBirthDate', 'StudyDate']
+        self.assertEqual(fields, expected)
+
+        print("Case 3: Test contains")
+        fields = expand_field_expression("contains:Date", dicom)
+        expected = ['AcquisitionDateTime', 'PatientBirthDate', 'StudyDate']
+        self.assertEqual(fields, expected)
+
+        print("Case 4: Test notcontains")
+        fields = expand_field_expression("containsno:Date", dicom)
+        expected = ['AccessionNumber', 'BitsAllocated', 'BitsStored',
+                    'Columns', 'ConversionType', 'HighBit',
+                    'ImageComments', 'InstanceNumber', 'InstitutionName',
+                   'LossyImageCompression',
+                    'LossyImageCompressionMethod',
+                    'NameOfPhysiciansReadingStudy', 'OperatorsName',
+                    'PatientID', 'PatientName', 'PatientOrientation',
+                    'PatientSex', 'PhotometricInterpretation',
+                    'PixelData', 'PixelRepresentation',
+                    'PlanarConfiguration', 'ReferringPhysicianName',
+                    'Rows', 'SOPClassUID', 'SOPInstanceUID',
+                    'SamplesPerPixel', 'SeriesInstanceUID',
+                    'SeriesNumber', 'SpecificCharacterSet', 'StudyID',
+                    'StudyInstanceUID', 'StudyTime']
+        self.assertEqual(fields, expected)
+
+        print("Case 4: Test all")
+        fields = expand_field_expression("all:", dicom)
+        expected = ['AccessionNumber', 'AcquisitionDateTime', 'BitsAllocated',
+                    'BitsStored', 'Columns', 'ConversionType', 'HighBit',
+                    'ImageComments', 'InstanceNumber', 'InstitutionName',
+                    'LossyImageCompression', 'LossyImageCompressionMethod',
+                    'NameOfPhysiciansReadingStudy', 'OperatorsName',
+                    'PatientBirthDate', 'PatientID', 'PatientName',
+                    'PatientOrientation', 'PatientSex',
+                    'PhotometricInterpretation', 'PixelData',
+                    'PixelRepresentation', 'PlanarConfiguration',
+                    'ReferringPhysicianName', 'Rows', 'SOPClassUID',
+                    'SOPInstanceUID', 'SamplesPerPixel', 'SeriesInstanceUID',
+                    'SeriesNumber', 'SpecificCharacterSet', 'StudyDate',
+                    'StudyID', 'StudyInstanceUID', 'StudyTime']
+        self.assertEqual(fields, expected)
 
 def get_dicom(dataset):
     '''helper function to load a dicom

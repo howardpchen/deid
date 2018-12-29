@@ -16,7 +16,7 @@ RUN conda install -c conda-forge jupyterlab
 RUN conda install nodejs
 RUN jupyter labextension install jupyterlab_vim
 RUN pip install pydicom==1.1.0
-RUN python -m pip install git+git://github.com/pydicom/pynetdicom3.git
+RUN python -m pip install git+git://github.com/pydicom/pynetdicom.git
 RUN mkdir /code
 ADD . /code
 WORKDIR /code
