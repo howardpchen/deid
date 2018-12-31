@@ -237,26 +237,24 @@ class TestDicomUtils(unittest.TestCase):
         expected = ['AcquisitionDateTime', 'PatientBirthDate', 'StudyDate']
         self.assertEqual(fields, expected)
 
-        print("Case 4: Test notcontains")
-        fields = expand_field_expression("notcontains:Date", dicom)
-        expected = ['AccessionNumber', 'BitsAllocated', 'BitsStored',
-                    'Columns', 'ConversionType', 'HighBit',
-                    'ImageComments', 'InstanceNumber', 'InstitutionName',
-                   'LossyImageCompression',
-                    'LossyImageCompressionMethod',
+        print("Case 4: Test except")
+        fields = expand_field_expression("except:Patient", dicom)
+        expected = ['AccessionNumber', 'AcquisitionDateTime',
+                    'BitsAllocated', 'BitsStored', 'Columns',
+                    'ConversionType', 'HighBit', 'ImageComments',
+                    'InstanceNumber', 'InstitutionName',
+                    'LossyImageCompression', 'LossyImageCompressionMethod',
                     'NameOfPhysiciansReadingStudy', 'OperatorsName',
-                    'PatientID', 'PatientName', 'PatientOrientation',
-                    'PatientSex', 'PhotometricInterpretation',
-                    'PixelData', 'PixelRepresentation',
-                    'PlanarConfiguration', 'ReferringPhysicianName',
-                    'Rows', 'SOPClassUID', 'SOPInstanceUID',
-                    'SamplesPerPixel', 'SeriesInstanceUID',
-                    'SeriesNumber', 'SpecificCharacterSet', 'StudyID',
-                    'StudyInstanceUID', 'StudyTime']
+                    'PhotometricInterpretation', 'PixelData',
+                    'PixelRepresentation', 'PlanarConfiguration',
+                    'ReferringPhysicianName', 'Rows', 'SOPClassUID',
+                    'SOPInstanceUID', 'SamplesPerPixel', 'SeriesInstanceUID',
+                   'SeriesNumber', 'SpecificCharacterSet', 'StudyDate',
+                    'StudyID', 'StudyInstanceUID', 'StudyTime']
         self.assertEqual(fields, expected)
 
-        print("Case 4: Test all")
-        fields = expand_field_expression("all:", dicom)
+        print("Case 5: Test all")
+        fields = expand_field_expression("all", dicom)
         expected = ['AccessionNumber', 'AcquisitionDateTime', 'BitsAllocated',
                     'BitsStored', 'Columns', 'ConversionType', 'HighBit',
                     'ImageComments', 'InstanceNumber', 'InstitutionName',
