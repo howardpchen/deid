@@ -111,7 +111,7 @@ def _perform_action(dicom, field, action, value=None, item=None):
                                    field=field,
                                    value=value)
             else:
-                bot.warning("REPLACE %s unsuccessful" %field)
+                bot.info("REPLACE %s unsuccessful" %field)
 
         # Code the value with something in the response
         elif action == "JITTER":

@@ -1,4 +1,4 @@
-'''
+d/'''
 
 Copyright (c) 2017-2018 Vanessa Sochat
 
@@ -55,6 +55,10 @@ def extract_sequence(sequence,prefix=None):
 
 def expand_field_expression(field, dicom, contenders=None):
     '''Get a list of fields based on an expression. If 
+<<<<<<< HEAD
+       no expression found, return single field.
+       
+=======
        no expression found, return single field. Options for fields include:
 
         endswith: filter to fields that end with the expression
@@ -63,6 +67,7 @@ def expand_field_expression(field, dicom, contenders=None):
         allfields: include all fields
         exceptfields: filter to all fields except those listed ( | separated)
     
+>>>>>>> f0aae6a21543621f9142fdc817f564c439033d14
     '''
     # Expanders that don't have a : must be checked for
     expanders = ['all']
@@ -92,12 +97,22 @@ def expand_field_expression(field, dicom, contenders=None):
     if expander.lower() == "endswith":
         fields = [x for x in contenders if re.search('(%s)$' %expression, x.lower())]
     elif expander.lower() == "startswith":
+<<<<<<< HEAD
+        fields = [x for x in contenders if x.startswith(expression)]
+    elif expander.lower() == "contains":
+        fields = [x for x in contenders if expression in x]
+    elif expander.lower() == "notcontains":
+        fields = [x for x in contenders if expression not in x]
+    elif expander.lower() == "all":
+        fields = contenders
+=======
         fields = [x for x in contenders if re.search('^(%s)' %expression, x.lower())]
     elif expander.lower() == "except":
         fields = [x for x in contenders if not re.search(expression, x.lower())]
     elif expander.lower() == "contains":
         fields = [x for x in contenders if re.search(expression, x.lower())]
 
+>>>>>>> f0aae6a21543621f9142fdc817f564c439033d14
     return fields
 
 
@@ -153,3 +168,4 @@ def get_fields_byVR(dicom,exclude_fields=None):
                 if dicom.data_element(field) not in exclude_fields:
                     fields.append(field)
     return fields
+
