@@ -103,18 +103,23 @@ def _perform_action(dicom, field, action, value=None, item=None):
 
         # Code the value with something in the response
         elif action == "REPLACE":
-
             newvalue = parse_value(item, value, field)
             if newvalue is not None:
                 # If we make it here, do the replacement
                 dicom = update_tag(dicom,
                                    field=field,
                                    value=newvalue)
-            elif value not in ['all', 'except']:
-                bot.warning("REPLACE %s unsuccessful" %field)
             else:
-                bot.debug("REPLACE did not make changes to %s" %field)
+                bot.warning("REPLACE %s unsuccessful" %field)
 
+        elif action == "SURVEY":
+            newvalue = parse_value(item, value, field)
+            if newvalue is not None:
+                # If we make it here, do the replacement
+                dicom = update_tag(dicom,
+                                   field=field,
+                                   value=newvalue)
+                bot.warning("SURVEY identified a hit in %s" %field)
 
         # Code the value with something in the response
         elif action == "JITTER":

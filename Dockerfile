@@ -9,18 +9,18 @@
 
 FROM continuumio/miniconda3
 
-RUN apt-get update && apt-get install -y wget git pkg-config libfreetype6-dev
+RUN apt-get update && apt-get install -y wget git pkg-config libfreetype6-dev dcmtk
 RUN /opt/conda/bin/conda install matplotlib==2.1.2
 RUN conda install pandas
 RUN conda install -c conda-forge jupyterlab
 RUN conda install nodejs
+RUN pip install pynetdicom
 RUN jupyter labextension install jupyterlab_vim
-RUN pip install pydicom==1.1.0
-RUN python -m pip install git+git://github.com/pydicom/pynetdicom.git
 RUN mkdir /code
 ADD . /code
 WORKDIR /code
 RUN python /code/setup.py install
+WORKDIR /
 RUN mkdir /home/deiduser
 RUN groupadd -g 1001 deiduser && \
     useradd -r -u 1001 -g deiduser deiduser

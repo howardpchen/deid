@@ -33,6 +33,7 @@ actions = ('ADD',
            'JITTER',
            'KEEP',
            'REPLACE',
+           'SURVEY',
            'REMOVE',
            'LABEL')
 

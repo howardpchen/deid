@@ -160,6 +160,17 @@ class TestDicomUtils(unittest.TestCase):
         updated = perform_action(dicom=dicom, action=ACTION, item=item)
         self.assertEqual(updated.PatientID, "pancakes")
 
+        print("Case 8: Testing SURVEY function (func:) with action")
+        ACTION = { "action":"SURVEY",
+                   "field":"PatientID",
+                   "value":"func:generate_uid"} 
+        def generate_uid(item, value, field):
+            return "waffles"
+        item['generate_uid'] = generate_uid
+        updated = perform_action(dicom=dicom, action=ACTION, item=item)
+        self.assertEqual(updated.PatientID, "waffles")
+
+
     def test_jitter_timestamp(self):
 
         from deid.dicom.actions import jitter_timestamp
