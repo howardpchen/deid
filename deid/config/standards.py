@@ -32,8 +32,8 @@ actions = ('ADD',
            'BLANK',
            'JITTER',
            'KEEP',
+           'SCREEN',
            'REPLACE',
-           'SURVEY',
            'REMOVE',
            'LABEL')
 

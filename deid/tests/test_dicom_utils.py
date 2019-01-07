@@ -160,8 +160,8 @@ class TestDicomUtils(unittest.TestCase):
         updated = perform_action(dicom=dicom, action=ACTION, item=item)
         self.assertEqual(updated.PatientID, "pancakes")
 
-        print("Case 8: Testing SURVEY function (func:) with action")
-        ACTION = { "action":"SURVEY",
+        print("Case 8: Testing SCREEN function (func:) with action")
+        ACTION = { "action":"SCREEN",
                    "field":"PatientID",
                    "value":"func:generate_uid"} 
         def generate_uid(item, value, field):

@@ -144,7 +144,6 @@ class DeidRecipe:
             if field is not None:
                 field = field.upper()
                 header = [x for x in header if x['field'].upper() == field]  
-
         return header
 
 

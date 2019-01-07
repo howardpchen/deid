@@ -447,7 +447,7 @@ def parse_action(section, line, config, section_name=None):
     field = parts.pop(0)
 
     # Actions that require a value
-    if action in [ "ADD", "REPLACE", "JITTER" ]:
+    if action in [ "ADD", "REPLACE", "SCREEN", "JITTER" ]:
         if len(parts) == 0:
             bot.error("%s requires a VALUE, but not found" %(action))        
             sys.exit(1)
